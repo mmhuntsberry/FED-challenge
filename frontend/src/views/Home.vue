@@ -76,7 +76,6 @@ export default {
     Card
   },
   setup() {
-    // QUERY
     let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
 
     return {
@@ -92,8 +91,8 @@ export default {
 .card__container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  margin: 0 16px;
+  gap: var(--spacing-04);
+  margin: 0;
   justify-content: center;
 }
 </style>

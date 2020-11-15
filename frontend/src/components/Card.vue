@@ -8,18 +8,20 @@
           <li class="card__subtext">{{ pokemon.types.join(", ") }}</li>
         </ul>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16pt"
-        height="16pt"
-        viewBox="0 0 16 16"
-        class="card__favorite"
-      >
-        <path
-          class="heart heart--is-active"
-          d="M8 2.945312C6.117188-.851562 0 .238281 0 5.125c0 4.847656 6.601562 7.292969 8 10.207031C9.398438 12.417969 16 9.972656 16 5.125 16 .242188 9.886719-.855469 8 2.945312zm0 0"
-        />
-      </svg>
+      <button class="card__button" @click="handleClick">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16px"
+          height="16px"
+          viewBox="0 0 16 16"
+          class="card__favorite"
+        >
+          <path
+            class="heart"
+            d="M8 2.945312C6.117188-.851562 0 .238281 0 5.125c0 4.847656 6.601562 7.292969 8 10.207031C9.398438 12.417969 16 9.972656 16 5.125 16 .242188 9.886719-.855469 8 2.945312zm0 0"
+          />
+        </svg>
+      </button>
     </div>
   </li>
 </template>
@@ -27,7 +29,12 @@
 <script>
 export default {
   name: "Card",
-  props: ["pokemon"]
+  props: ["pokemon"],
+  methods: {
+    handleClick() {
+      console.log("click");
+    }
+  }
 };
 </script>
 
@@ -63,9 +70,17 @@ export default {
   align-self: center;
 }
 
-.card__favorite {
+.card__button {
+  border: 0;
+  padding: 0;
+  height: 16px;
   align-self: center;
+  cursor: pointer;
+}
+
+.card__favorite {
   overflow: visible;
+  stroke-width: 2;
 }
 
 .heart {
