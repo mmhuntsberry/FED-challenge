@@ -12,7 +12,6 @@ import VueApollo from "vue-apollo";
 
 const apolloClient = new ApolloClient({
   // You should use an absolute URL here
-  connectToDevTools: true,
   uri: "http://localhost:4000/graphql"
 });
 

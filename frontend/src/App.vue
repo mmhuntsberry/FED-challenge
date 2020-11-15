@@ -3,34 +3,70 @@
     <header class="header">
       <Nav />
       <input type="text" />
-      <select name="types" id="type-select">
-        <option value="">--Please choose an option--</option>
-        <option value="dog">Dog</option>
-        <option value="cat">Cat</option>
-        <option value="hamster">Hamster</option>
-        <option value="parrot">Parrot</option>
-        <option value="spider">Spider</option>
-        <option value="goldfish">Goldfish</option>
+      <div v-if="state.tloading">Loading...</div>
+
+      <select v-else required>
+        <option disabled value="">Add a New label</option>
+        <option
+          v-for="type in state.tresult.pokemonTypes"
+          :value="type"
+          :key="type"
+          >{{ type }}</option
+        >
       </select>
     </header>
-    <router-view :pokemons="result.pokemons.edges" />
+    <div v-if="state.loading">Loading....</div>
+    <div v-else-if="state.error">{{ error }}</div>
+    <router-view v-else :pokemons="state.filterByLabel" />
   </div>
 </template>
 
 <script>
 import Nav from "@/components/Nav.vue";
-import { ALL_POKEMON_QUERY } from "./graphql/queries";
+import { ALL_POKEMON_QUERY, ALL_TYPES_QUERY } from "./graphql/queries";
 import { useQuery } from "@vue/apollo-composable";
+import { ref, reactive, computed } from "@vue/composition-api";
 
 export default {
   components: { Nav },
+  data() {
+    return {
+      selected: ""
+    };
+  },
+  computed: {
+    // filterByLabel() {
+    //   console.log(this.result);
+    //   let filter = new RegExp(this.selected, "i");
+    //   return result.pokemons.edges.filter(el =>
+    //     el.types.forEach(type => type.match(filter))
+    //   );
+    // }
+  },
   setup() {
     let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
+    let { result: tresult, loading: tloading, error: terror } = useQuery(
+      ALL_TYPES_QUERY
+    );
 
-    return {
+    const state = reactive({
       result,
       loading,
-      error
+      error,
+      tresult,
+      tloading,
+      terror,
+      filterByLabel: computed(() => {
+        // let filter = new RegExp("fire", "i");
+        return state.result.pokemons.edges.filter(el => {
+          console.log(el.types);
+          return el.types.forEach(type => type.includes(this.selected));
+        });
+      })
+    });
+
+    return {
+      state
     };
   }
 };

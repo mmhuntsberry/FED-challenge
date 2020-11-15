@@ -47,3 +47,9 @@ export const ALL_POKEMON_QUERY = gql`
     }
   }
 `;
+
+export const ALL_TYPES_QUERY = gql`
+  query {
+    pokemonTypes
+  }
+`;
