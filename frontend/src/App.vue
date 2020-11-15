@@ -2,11 +2,12 @@
   <div id="app">
     <header class="header">
       <Nav />
-      <input type="text" />
+      <input type="text" v-model="state.searchText" />
       <div v-if="state.tloading">Loading...</div>
 
-      <select v-else required>
-        <option disabled value="">Add a New label</option>
+      <select v-else v-model="state.selected" required>
+        <option disabled value="">Type</option>
+        <option value="All">All</option>
         <option
           v-for="type in state.tresult.pokemonTypes"
           :value="type"
@@ -17,7 +18,8 @@
     </header>
     <div v-if="state.loading">Loading....</div>
     <div v-else-if="state.error">{{ error }}</div>
-    <router-view v-else :pokemons="state.filterByLabel" />
+    <!-- <router-view v-else :pokemons="state.filterByText" /> -->
+    <router-view v-else :pokemons="state.filterPokemons" />
   </div>
 </template>
 
@@ -26,23 +28,14 @@ import Nav from "@/components/Nav.vue";
 import { ALL_POKEMON_QUERY, ALL_TYPES_QUERY } from "./graphql/queries";
 import { useQuery } from "@vue/apollo-composable";
 import { ref, reactive, computed } from "@vue/composition-api";
+import _ from "lodash";
 
 export default {
   components: { Nav },
   data() {
-    return {
-      selected: ""
-    };
+    return {};
   },
-  computed: {
-    // filterByLabel() {
-    //   console.log(this.result);
-    //   let filter = new RegExp(this.selected, "i");
-    //   return result.pokemons.edges.filter(el =>
-    //     el.types.forEach(type => type.match(filter))
-    //   );
-    // }
-  },
+  computed: {},
   setup() {
     let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
     let { result: tresult, loading: tloading, error: terror } = useQuery(
@@ -56,12 +49,29 @@ export default {
       tresult,
       tloading,
       terror,
-      filterByLabel: computed(() => {
-        // let filter = new RegExp("fire", "i");
-        return state.result.pokemons.edges.filter(el => {
-          console.log(el.types);
-          return el.types.forEach(type => type.includes(this.selected));
-        });
+      selected: "",
+      searchText: "",
+      filterPokemons: computed(() => {
+        let filter = new RegExp(state.selected, "i");
+        if (state.selected === "All") {
+          return state.result.pokemons.edges.filter(p =>
+            p.name.toLowerCase().includes(state.searchText.toLowerCase())
+          );
+        }
+        const filtered = state.result.pokemons.edges.reduce(
+          (filtered, curr) => {
+            curr.types.filter(type => {
+              if (type.match(filter)) {
+                filtered.push(curr);
+              }
+            });
+            return _.uniq(filtered, "id");
+          },
+          []
+        );
+        return filtered.filter(p =>
+          p.name.toLowerCase().includes(state.searchText.toLowerCase())
+        );
       })
     });
 
