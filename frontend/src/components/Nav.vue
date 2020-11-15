@@ -18,7 +18,7 @@ export default {};
 <style lang="scss" scoped>
 .nav {
   height: 36px;
-  border: 1px solid #84bea3;
+  border: 1px solid var(--green);
 }
 
 .nav__list {
@@ -34,6 +34,7 @@ export default {};
   height: 100%;
   width: 100%;
   color: var(--green);
+  cursor: pointer;
 }
 
 .nav__item.router-link-exact-active {

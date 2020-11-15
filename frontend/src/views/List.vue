@@ -1,6 +1,11 @@
 <template>
   <ul class="card__container">
-    <Card v-for="pokemon in pokemons" :key="pokemon.id" :pokemon="pokemon" />
+    <Card
+      v-for="pokemon in pokemons"
+      :key="pokemon.id"
+      :pokemon="pokemon"
+      :viewLayout="viewLayout"
+    />
   </ul>
 </template>
 
@@ -12,7 +17,7 @@ export default {
   components: {
     Card
   },
-  props: ["pokemons", "loading", "error"]
+  props: ["pokemons", "loading", "error", "viewLayout"]
 };
 </script>
 

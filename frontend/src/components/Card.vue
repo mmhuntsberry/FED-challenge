@@ -1,5 +1,5 @@
 <template>
-  <li class="card">
+  <li :class="[viewLayout.isGrid ? 'card' : 'list']">
     <img class="card__image" :src="pokemon.image" :alt="pokemon.name" />
     <div class="card__details-container">
       <div class="card__details">
@@ -29,7 +29,7 @@
 <script>
 export default {
   name: "Card",
-  props: ["pokemon"],
+  props: ["pokemon", "viewLayout"],
   methods: {
     handleClick() {
       console.log("click");
