@@ -35,15 +35,15 @@ export default {
 .card {
   display: grid;
   grid-template-rows: 1fr 20%;
-  border: 1px solid #cccccc;
+  border: 1px solid var(--grey-01);
   width: 200px;
   height: 350px;
 }
 
 .card__image {
-  max-width: 100%;
   align-self: center;
-  padding: 0px 16px;
+  max-width: 100%;
+  padding: 0px var(--spacing-04);
 }
 
 .card__title {
@@ -54,9 +54,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-self: end;
-  background-color: #f3f3f3;
   height: 60px;
-  padding: 0px 16px;
+  padding: 0px var(--spacing-04);
+  background-color: var(--white-01);
 }
 
 .card__details {
@@ -70,15 +70,15 @@ export default {
 
 .heart {
   fill: none;
-  stroke: red;
+  stroke: var(--red);
 }
 
 .heart.heart--is-active {
-  fill: red;
-  /* stroke: red; */
+  fill: var(--red);
 }
 
 .card__subtext {
   display: inline;
+  font-weight: lighter;
 }
 </style>
