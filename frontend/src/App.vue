@@ -94,8 +94,6 @@ export default {
     }
   },
   setup(props, { root }) {
-    // console.log("APP", "ctx", root.$store.state);
-
     let { result, loading, error, fetchMore } = useQuery(ALL_POKEMON_QUERY, {
       limit: 20
     });
@@ -103,9 +101,9 @@ export default {
       ALL_TYPES_QUERY
     );
 
+    // handles infinite scroll
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        console.log("yay!");
         loadMore();
       }
     };
@@ -128,11 +126,6 @@ export default {
           if (!fetchMoreResult) return previousResult;
 
           // Concat previous feed with new feed posts
-          const newRes = {
-            ...previousResult,
-            ...fetchMoreResult
-          };
-          console.log(newRes);
           return {
             ...previousResult,
             ...fetchMoreResult
@@ -155,7 +148,8 @@ export default {
       }),
       filterPokemons: computed(() => {
         let filter = new RegExp(state.selected, "i");
-        // handles the case if 'all' is selected but you still want to filter on text also
+        // handles the case if 'all'
+        // is selected but you still want to filter on text also
         if (state.selected === "All") {
           return state.result.pokemons.edges.filter(p =>
             p.name.toLowerCase().includes(state.searchText.toLowerCase())
