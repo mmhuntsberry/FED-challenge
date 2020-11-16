@@ -1,31 +1,15 @@
 <template>
-  <li :class="[viewLayout.isGrid ? 'card' : 'list']">
+  <li class="card">
     <router-link class="card__image-link" :to="'/' + pokemon.name">
-      <img
-        :class="[viewLayout.isGrid ? 'card__image' : 'list__image']"
-        :src="pokemon.image"
-        :alt="pokemon.name"
-      />
+      <img class="card__image" :src="pokemon.image" :alt="pokemon.name" />
     </router-link>
-    <div
-      :class="[
-        viewLayout.isGrid
-          ? 'card__details-container'
-          : 'list__details-container'
-      ]"
-    >
-      <div :class="[viewLayout.isGrid ? 'card__details' : 'list__details']">
+    <div class="card__details-container card__details-container--evolution">
+      <div class="card__details">
         <router-link class="router-link" :to="'/' + pokemon.name">
           <h4 class="card__title">{{ pokemon.name }}</h4>
         </router-link>
-        <ul v-if="pokemon.types">
-          <li class="card__subtext">{{ pokemon.types.join(", ") }}</li>
-        </ul>
       </div>
-      <button
-        :class="[viewLayout.isGrid ? 'card__button' : 'list__button']"
-        @click="handleClick"
-      >
+      <button class="card__button" @click="handleClick">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16px"
@@ -111,6 +95,10 @@ export default {
   height: 60px;
   padding: 0px var(--spacing-04);
   background-color: var(--white-01);
+
+  &--evolution {
+    height: 40px;
+  }
 }
 
 .card__details {

@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <header class="header">
+    <header
+      class="header"
+      v-show="$route.name === 'list' || $route.name === 'favorites'"
+    >
       <Nav />
       <div
         :class="[
@@ -68,12 +71,19 @@ export default {
   components: { Nav },
   data() {
     return {
-      viewLayout: {
-        isGrid: true,
-        isList: false
-      },
-      favorites: []
+      // viewLayout: {
+      //   isGrid: true
+      // }
+      // favorites: []
     };
+  },
+  computed: {
+    favorites() {
+      return this.$store.state.favorites;
+    },
+    viewLayout() {
+      return this.$store.state.viewLayout;
+    }
   },
   methods: {
     isGridView() {

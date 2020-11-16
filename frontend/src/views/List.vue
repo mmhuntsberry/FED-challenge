@@ -5,28 +5,24 @@
       :key="pokemon.id"
       :pokemon="pokemon"
       :viewLayout="viewLayout"
-      :favorites="favorites"
       :isFavorite="isFavorite"
     />
   </ul>
 </template>
 
 <script>
-// @ is an alias to /src
 import Card from "@/components/Card.vue";
 export default {
   name: "list",
   components: {
     Card
   },
-  props: [
-    "pokemons",
-    "loading",
-    "error",
-    "viewLayout",
-    "favorites",
-    "isFavorite"
-  ]
+  props: ["pokemons", "loading", "error", "viewLayout", "isFavorite"],
+  computed: {
+    favorites() {
+      return this.$store.state.favorites;
+    }
+  }
 };
 </script>
 
@@ -42,6 +38,6 @@ export default {
 .list__container {
   display: block;
   margin: 0 auto;
-  width: 450px;
+  width: 600px;
 }
 </style>
