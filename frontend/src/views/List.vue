@@ -1,10 +1,12 @@
 <template>
-  <ul class="card__container">
+  <ul :class="[viewLayout.isGrid ? 'card__container' : 'list__container']">
     <Card
       v-for="pokemon in pokemons"
       :key="pokemon.id"
       :pokemon="pokemon"
       :viewLayout="viewLayout"
+      :favorites="favorites"
+      :isFavorite="isFavorite"
     />
   </ul>
 </template>
@@ -17,16 +19,29 @@ export default {
   components: {
     Card
   },
-  props: ["pokemons", "loading", "error", "viewLayout"]
+  props: [
+    "pokemons",
+    "loading",
+    "error",
+    "viewLayout",
+    "favorites",
+    "isFavorite"
+  ]
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .card__container {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-04);
   margin: 0;
   justify-content: center;
+}
+
+.list__container {
+  display: block;
+  margin: 0 auto;
+  width: 450px;
 }
 </style>

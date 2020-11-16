@@ -1,0 +1,57 @@
+.card {
+  display: grid;
+  grid-template-rows: 1fr 20%;
+  border: 1px solid var(--grey-01);
+  width: 200px;
+  height: 350px;
+}
+
+.card__image {
+  align-self: center;
+  max-width: 100%;
+  padding: 0px var(--spacing-04);
+}
+
+.card__title {
+  margin: 0;
+}
+
+.card__details-container {
+  display: flex;
+  justify-content: space-between;
+  align-self: end;
+  height: 60px;
+  padding: 0px var(--spacing-04);
+  background-color: var(--white-01);
+}
+
+.card__details {
+  align-self: center;
+}
+
+.card__button {
+  border: 0;
+  padding: 0;
+  height: 16px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.card__favorite {
+  overflow: visible;
+  stroke-width: 2;
+}
+
+.heart {
+  fill: none;
+  stroke: var(--red);
+}
+
+.heart--is-active {
+  fill: var(--red);
+}
+
+.card__subtext {
+  display: inline;
+  font-weight: lighter;
+}

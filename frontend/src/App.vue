@@ -2,15 +2,25 @@
   <div id="app">
     <header class="header">
       <Nav />
-      <div class="header__controls">
+      <div
+        :class="[
+          $route.name === 'list'
+            ? 'header__controls'
+            : 'header__controls--favorites'
+        ]"
+      >
         <input
+          v-show="$route.name === 'list'"
           class="controls__filter"
           type="text"
           v-model="state.searchText"
           role="Search"
+          placeholder="Search"
         />
+
         <div v-if="state.tloading">Loading...</div>
         <select
+          v-show="$route.name === 'list'"
           class="controls__select"
           v-else
           v-model="state.selected"
@@ -42,6 +52,7 @@
       v-else
       :pokemons="state.filterPokemons"
       :viewLayout="viewLayout"
+      :favorites="favorites"
     />
   </div>
 </template>
@@ -60,7 +71,8 @@ export default {
       viewLayout: {
         isGrid: true,
         isList: false
-      }
+      },
+      favorites: []
     };
   },
   methods: {
@@ -137,11 +149,25 @@ export default {
   gap: 8px;
   margin-top: 16px;
   height: 36px;
+
+  &--favorites {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    margin-top: 16px;
+    height: 36px;
+  }
 }
 
 .controls__filter {
   border: 0;
   background-color: var(--white-01);
+  padding-left: 16px;
+
+  &::placeholder {
+    color: #949494;
+    opacity: 1;
+  }
 }
 
 .controls__select {
@@ -150,11 +176,11 @@ export default {
   appearance: none;
   background-image: url("./assets/caret.svg");
   background-repeat: no-repeat, repeat;
-  /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
   background-position: right 0.7em top 50%, 0 0;
-  /* icon size, then gradient */
   background-size: 0.65em auto, 100%;
   cursor: pointer;
+  padding-left: 16px;
+  color: #949494;
 }
 
 .controls__view-container {
@@ -166,6 +192,7 @@ export default {
   background-color: #fff;
   cursor: pointer;
 }
+
 .vertical-rule {
   display: inline-block;
   height: 100%;
