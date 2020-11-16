@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
 export const ALL_POKEMON_QUERY = gql`
-  query {
-    pokemons(query: {}) {
+  query allPokemonQuery($limit: Int) {
+    pokemons(query: { limit: $limit }) {
       edges {
         id
         name

@@ -64,13 +64,11 @@
 import Nav from "@/components/Nav.vue";
 import { ALL_POKEMON_QUERY, ALL_TYPES_QUERY } from "./graphql/queries";
 import { useQuery } from "@vue/apollo-composable";
-import { useState, useActions } from "vuex-composition-helpers";
 import {
   reactive,
   computed,
   onMounted,
-  onUpdated,
-  onBeforeMount
+  onUnmounted
 } from "@vue/composition-api";
 import _ from "lodash";
 
@@ -98,17 +96,50 @@ export default {
   setup(props, { root }) {
     // console.log("APP", "ctx", root.$store.state);
 
-    let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
+    let { result, loading, error, fetchMore } = useQuery(ALL_POKEMON_QUERY, {
+      limit: 20
+    });
     let { result: tresult, loading: tloading, error: terror } = useQuery(
       ALL_TYPES_QUERY
     );
 
-    // console.log(result.pokemons.edges);
-    // // ctx.root.$store.state.pokemons.push(result.pokemons.edges);
-    // const addPokemon = pokemon => {
-    //   console.log(pokemon);
-    //   return ctx.root.$store.commit("addPokemon", pokemon);
-    // };
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        console.log("yay!");
+        loadMore();
+      }
+    };
+
+    onMounted(() => {
+      window.addEventListener("scroll", handleScroll);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener("scroll", handleScroll);
+    });
+
+    function loadMore() {
+      fetchMore({
+        variables: {
+          limit: (state.result.pokemons.edges.length += 10)
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          // No new feed posts
+          if (!fetchMoreResult) return previousResult;
+
+          // Concat previous feed with new feed posts
+          const newRes = {
+            ...previousResult,
+            ...fetchMoreResult
+          };
+          console.log(newRes);
+          return {
+            ...previousResult,
+            ...fetchMoreResult
+          };
+        }
+      });
+    }
 
     const state = reactive({
       result,

@@ -1,26 +1,22 @@
 <template>
   <div class="item__container">
     <div class="item__image-container">
-      <button class="button__sound" @click="playSound(state.getPokemon.sound)">
+      <button class="button__sound" @click="playSound(getPokemon.sound)">
         <img src="../assets/speaker.svg" alt="Speaker" />
       </button>
-      <img
-        class="item__image"
-        :src="state.getPokemon.image"
-        :alt="state.getPokemon.name"
-      />
+      <img class="item__image" :src="getPokemon.image" :alt="getPokemon.name" />
     </div>
     <div class="item__details-container">
       <div class="item__name-container">
         <div>
-          <h4 class="card__title">{{ state.getPokemon.name }}</h4>
+          <h4 class="card__title">{{ getPokemon.name }}</h4>
           <ul class="types__container">
             <li class="card__subtext">
-              {{ state.getPokemon.types.join(", ") }}
+              {{ getPokemon.types.join(", ") }}
             </li>
           </ul>
         </div>
-        <button class="list__button" @click="handleClick(state.getPokemon)">
+        <button class="list__button" @click="handleClick(getPokemon)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16px"
@@ -29,9 +25,7 @@
             class="card__favorite"
           >
             <path
-              :class="[
-                !state.getPokemon.isFavorite ? 'heart' : 'heart--is-active'
-              ]"
+              :class="[!getPokemon.isFavorite ? 'heart' : 'heart--is-active']"
               d="M8
           2.945312C6.117188-.851562 0 .238281 0 5.125c0 4.847656 6.601562
           7.292969 8 10.207031C9.398438 12.417969 16 9.972656 16 5.125 16
@@ -43,33 +37,33 @@
       <div class="item__powers-container">
         <div class="power__container">
           <span class="powerbar powerbar--cp"></span>
-          <span>CP: {{ state.getPokemon.maxCP }}</span>
+          <span>CP: {{ getPokemon.maxCP }}</span>
         </div>
         <div class="power__container">
           <span class="powerbar powerbar--hp"></span>
-          <span>HP: {{ state.getPokemon.maxHP }}</span>
+          <span>HP: {{ getPokemon.maxHP }}</span>
         </div>
       </div>
       <div class="item__attibutes-container">
         <div class="item__attibute">
           <span class="attribute__title">Weight</span>
           <span class="attibute"
-            >{{ state.getPokemon.weight.minimum }} -
-            {{ state.getPokemon.weight.maximum }}</span
+            >{{ getPokemon.weight.minimum }} -
+            {{ getPokemon.weight.maximum }}</span
           >
         </div>
         <div class="item__attibute">
           <span class="attribute__title">Height</span>
           <span class="attibute"
-            >{{ state.getPokemon.height.minimum }} -
-            {{ state.getPokemon.height.maximum }}</span
+            >{{ getPokemon.height.minimum }} -
+            {{ getPokemon.height.maximum }}</span
           >
         </div>
       </div>
     </div>
     <div class="evolutions__container">
       <h4>Evolutions</h4>
-      <ul class="evolutions__list" v-if="state.getEvolutions.length">
+      <!-- <ul class="evolutions__list" v-if="state.getEvolutions.length">
         <Evolution
           v-for="pokemon in state.getEvolutions"
           :key="pokemon.id"
@@ -77,8 +71,7 @@
           :isFavorite="pokemon.isFavorite"
         />
       </ul>
-      <div v-else>No evolutions</div>
-      {{ pokemons }}
+      <div v-else>No evolutions</div> -->
     </div>
   </div>
 </template>
@@ -103,6 +96,11 @@ export default {
     },
     viewLayout() {
       return this.$store.state.viewLayout;
+    },
+    getPokemon() {
+      return this.pokemons.find(
+        pokemon => pokemon.name.toLowerCase() === this.param.name.toLowerCase()
+      );
     }
   },
   methods: {
