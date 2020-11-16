@@ -64,18 +64,20 @@
 import Nav from "@/components/Nav.vue";
 import { ALL_POKEMON_QUERY, ALL_TYPES_QUERY } from "./graphql/queries";
 import { useQuery } from "@vue/apollo-composable";
-import { reactive, computed } from "@vue/composition-api";
+import { useState, useActions } from "vuex-composition-helpers";
+import {
+  reactive,
+  computed,
+  onMounted,
+  onUpdated,
+  onBeforeMount
+} from "@vue/composition-api";
 import _ from "lodash";
 
 export default {
   components: { Nav },
   data() {
-    return {
-      // viewLayout: {
-      //   isGrid: true
-      // }
-      // favorites: []
-    };
+    return {};
   },
   computed: {
     favorites() {
@@ -93,11 +95,20 @@ export default {
       this.viewLayout.isGrid = false;
     }
   },
-  setup() {
+  setup(props, { root }) {
+    // console.log("APP", "ctx", root.$store.state);
+
     let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
     let { result: tresult, loading: tloading, error: terror } = useQuery(
       ALL_TYPES_QUERY
     );
+
+    // console.log(result.pokemons.edges);
+    // // ctx.root.$store.state.pokemons.push(result.pokemons.edges);
+    // const addPokemon = pokemon => {
+    //   console.log(pokemon);
+    //   return ctx.root.$store.commit("addPokemon", pokemon);
+    // };
 
     const state = reactive({
       result,
@@ -108,6 +119,9 @@ export default {
       terror,
       selected: "",
       searchText: "",
+      addPokemon: computed(() => {
+        return root.$store.commit("addPokemon", state.result.pokemons);
+      }),
       filterPokemons: computed(() => {
         let filter = new RegExp(state.selected, "i");
         // handles the case if 'all' is selected but you still want to filter on text also

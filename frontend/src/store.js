@@ -8,8 +8,14 @@ export default new Vuex.Store({
     favorites: [],
     viewLayout: {
       isGrid: true
+    },
+    pokemons: []
+  },
+  mutations: {
+    addPokemon(state, pokemon) {
+      console.log(state);
+      return state.pokemons.push(pokemon);
     }
   },
-  mutations: {},
   actions: {}
 });

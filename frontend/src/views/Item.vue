@@ -78,6 +78,7 @@
         />
       </ul>
       <div v-else>No evolutions</div>
+      {{ pokemons }}
     </div>
   </div>
 </template>
@@ -90,7 +91,7 @@ import { reactive, computed } from "@vue/composition-api";
 
 export default {
   components: { Evolution },
-  props: ["param"],
+  props: ["param", "pokemons"],
   data() {
     return {
       name: this.$route.params.name
@@ -123,44 +124,45 @@ export default {
         this.favorites.splice(foundIndex, 1);
       }
     }
-  },
-  setup(props) {
-    let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
-    const state = reactive({
-      result,
-      loading,
-      error,
-      getPokemon: computed(() => {
-        return state.result.pokemons.edges.find(
-          pokemon =>
-            pokemon.name.toLowerCase() === props.param.name.toLowerCase()
-        );
-      }),
-      getEvolutions: computed(() => {
-        const found = state.result.pokemons.edges.find(
-          pokemon =>
-            pokemon.name.toLowerCase() === props.param.name.toLowerCase()
-        );
-
-        const evolutions = state.result.pokemons.edges.reduce(
-          (filtered, curr) => {
-            found.evolutions.filter(pokemon => {
-              if (curr.name === pokemon.name) {
-                filtered.push(curr);
-              }
-            });
-            return filtered;
-          },
-          []
-        );
-
-        return evolutions;
-      })
-    });
-    return {
-      state
-    };
   }
+  // setup(props, ctx) {
+  //   console.log("ctx", ctx.root.$store.state);
+  //   let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
+  //   const state = reactive({
+  //     result,
+  //     loading,
+  //     error,
+  //     getPokemon: computed(() => {
+  //       return state.result.pokemons.edges.find(
+  //         pokemon =>
+  //           pokemon.name.toLowerCase() === props.param.name.toLowerCase()
+  //       );
+  //     }),
+  //     getEvolutions: computed(() => {
+  //       const found = state.result.pokemons.edges.find(
+  //         pokemon =>
+  //           pokemon.name.toLowerCase() === props.param.name.toLowerCase()
+  //       );
+
+  //       const evolutions = state.result.pokemons.edges.reduce(
+  //         (filtered, curr) => {
+  //           found.evolutions.filter(pokemon => {
+  //             if (curr.name === pokemon.name) {
+  //               filtered.push(curr);
+  //             }
+  //           });
+  //           return filtered;
+  //         },
+  //         []
+  //       );
+
+  //       return evolutions;
+  //     })
+  //   });
+  //   return {
+  //     state
+  //   };
+  // }
 };
 </script>
 
