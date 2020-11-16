@@ -59,6 +59,7 @@ export default {
     }
   },
   methods: {
+    // add and remove items to favorite from vuex
     handleClick() {
       if (!this.pokemon.isFavorite) {
         this.pokemon.isFavorite = !this.pokemon.isFavorite;
@@ -120,7 +121,7 @@ export default {
 .card__button {
   border: 0;
   padding: 0;
-  height: 16px;
+  height: var(--spacing-04);
   align-self: center;
   cursor: pointer;
 }
@@ -148,7 +149,7 @@ export default {
   display: grid;
   grid-template-columns: 75px 1fr 24px;
   border-top: 1px solid var(--grey-01);
-  padding: 4px;
+  padding: var(--spacing-01);
 
   &:first-child {
     border-top: none;
@@ -179,7 +180,7 @@ export default {
   background-color: transparent;
   border: 0;
   padding: 0;
-  height: 16px;
+  height: var(--spacing-04);
   align-self: center;
   cursor: pointer;
 }
