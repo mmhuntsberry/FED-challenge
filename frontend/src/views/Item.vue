@@ -50,17 +50,17 @@
           <span>HP: {{ state.getPokemon.maxHP }}</span>
         </div>
       </div>
-      <div>
-        <div>
-          <span>Weight</span>
-          <span
+      <div class="item__attibutes-container">
+        <div class="item__attibute">
+          <span class="attribute__title">Weight</span>
+          <span class="attibute"
             >{{ state.getPokemon.weight.minimum }} -
             {{ state.getPokemon.weight.maximum }}</span
           >
         </div>
-        <div>
-          <span>Height</span>
-          <span
+        <div class="item__attibute">
+          <span class="attribute__title">Height</span>
+          <span class="attibute"
             >{{ state.getPokemon.height.minimum }} -
             {{ state.getPokemon.height.maximum }}</span
           >
@@ -69,7 +69,7 @@
     </div>
     <div class="evolutions__container">
       <h4>Evolutions</h4>
-      <ul class="evolutions__list">
+      <ul class="evolutions__list" v-if="state.getEvolutions.length">
         <Evolution
           v-for="pokemon in state.getEvolutions"
           :key="pokemon.id"
@@ -77,6 +77,7 @@
           :isFavorite="pokemon.isFavorite"
         />
       </ul>
+      <div v-else>No evolutions</div>
     </div>
   </div>
 </template>
@@ -190,14 +191,13 @@ export default {
 .item__details-container {
   display: grid;
   background-color: var(--white-01);
-  padding: 16px;
 }
 
 .item__name-container {
   display: grid;
   grid-template-columns: 1fr 24px;
   justify-content: space-between;
-  margin-bottom: 16px;
+  padding: 16px;
 }
 
 .types__container {
@@ -208,6 +208,11 @@ export default {
   display: grid;
   gap: 16px;
   grid-template-columns: 1fr 70px;
+  padding: 0 16px 8px;
+
+  &:last-child {
+    margin-bottom: 16px;
+  }
 }
 
 .powerbar {
@@ -233,5 +238,30 @@ export default {
 .evolutions__list {
   display: flex;
   gap: 8px;
+}
+
+.item__attibutes-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-content: center;
+  height: 100px;
+  border: 1px solid var(--grey-01);
+}
+
+.item__attibute {
+  width: 100%;
+  height: 100px;
+  display: grid;
+  justify-items: center;
+
+  &:last-child {
+    border-left: 1px solid var(--grey-01);
+  }
+}
+
+.attribute__title {
+  align-self: end;
+  margin-bottom: 8px;
 }
 </style>
