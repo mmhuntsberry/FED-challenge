@@ -59,7 +59,6 @@ export default {
         const foundIndex = this.favorites.findIndex(
           p => p.name.toLowerCase() === this.pokemon.name.toLowerCase()
         );
-        console.log(foundIndex);
         this.pokemon.isFavorite = !this.pokemon.isFavorite;
         this.favorites.splice(foundIndex, 1);
       }
