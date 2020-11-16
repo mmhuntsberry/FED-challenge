@@ -136,7 +136,7 @@ export default {
   display: grid;
   grid-template-columns: 75px 1fr 24px;
   border-top: 1px solid var(--grey-01);
-  padding: 4px;
+  padding: var(--spacing-01);
 
   &:first-child {
     border-top: none;

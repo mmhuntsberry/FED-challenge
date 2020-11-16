@@ -140,56 +140,18 @@ export default {
       }
     }
   }
-  // setup(props, ctx) {
-  //   console.log("ctx", ctx.root.$store.state);
-  //   let { result, loading, error } = useQuery(ALL_POKEMON_QUERY);
-  //   const state = reactive({
-  //     result,
-  //     loading,
-  //     error,
-  //     getPokemon: computed(() => {
-  //       return state.result.pokemons.edges.find(
-  //         pokemon =>
-  //           pokemon.name.toLowerCase() === props.param.name.toLowerCase()
-  //       );
-  //     }),
-  //     getEvolutions: computed(() => {
-  //       const found = state.result.pokemons.edges.find(
-  //         pokemon =>
-  //           pokemon.name.toLowerCase() === props.param.name.toLowerCase()
-  //       );
-
-  //       const evolutions = state.result.pokemons.edges.reduce(
-  //         (filtered, curr) => {
-  //           found.evolutions.filter(pokemon => {
-  //             if (curr.name === pokemon.name) {
-  //               filtered.push(curr);
-  //             }
-  //           });
-  //           return filtered;
-  //         },
-  //         []
-  //       );
-
-  //       return evolutions;
-  //     })
-  //   });
-  //   return {
-  //     state
-  //   };
-  // }
 };
 </script>
 
 <style lang="scss" scoped>
 .item__container {
   border: 1px solid var(--grey-01);
-  margin: 8px;
+  margin: var(--spacing-02);
 }
 .item__image-container {
   display: grid;
   grid-template-columns: 25px 1fr;
-  padding: 8px 0;
+  padding: var(--spacing-02) 0;
 }
 
 .button__sound {
@@ -197,8 +159,8 @@ export default {
   border: 0;
   background-color: transparent;
   cursor: pointer;
-  padding-left: 24px;
-  padding-bottom: 8px;
+  padding-left: var(--spacing-06);
+  padding-bottom: var(--spacing-02);
 }
 
 .item__image {
@@ -214,7 +176,7 @@ export default {
   display: grid;
   grid-template-columns: 1fr 24px;
   justify-content: space-between;
-  padding: 16px;
+  padding: var(--spacing-04);
 }
 
 .types__container {
@@ -225,36 +187,36 @@ export default {
   display: grid;
   gap: 16px;
   grid-template-columns: 1fr 70px;
-  padding: 0 16px 8px;
+  padding: 0 var(--spacing-04) var(--spacing-02);
 
   &:last-child {
-    margin-bottom: 16px;
+    margin-bottom: var(--spacing-04);
   }
 }
 
 .powerbar {
-  margin-right: 4px;
+  margin-right: var(--spacing-01);
   align-self: center;
   display: block;
   border-radius: 5px;
   height: 10px;
 
   &--cp {
-    background-color: #9ea1f8;
+    background-color: var(--purple);
   }
 
   &--hp {
-    background-color: #84bea3;
+    background-color: var(--green);
   }
 }
 
 .evolutions__container {
-  margin-left: 16px;
+  margin-left: var(--spacing-04);
 }
 
 .evolutions__list {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-02);
 }
 
 .item__attibutes-container {
@@ -279,6 +241,6 @@ export default {
 
 .attribute__title {
   align-self: end;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-02);
 }
 </style>

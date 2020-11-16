@@ -195,15 +195,15 @@ export default {
 .header__controls {
   display: grid;
   grid-template-columns: 2fr 1fr 80px;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--spacing-02);
+  margin-top: var(--spacing-04);
   height: 36px;
 
   &--favorites {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
-    margin-top: 16px;
+    margin-top: var(--spacing-04);
     height: 36px;
   }
 }
@@ -211,10 +211,10 @@ export default {
 .controls__filter {
   border: 0;
   background-color: var(--white-01);
-  padding-left: 16px;
+  padding-left: var(--spacing-04);
 
   &::placeholder {
-    color: #949494;
+    color: var(--grey-02);
     opacity: 1;
   }
 }
@@ -229,7 +229,7 @@ export default {
   background-size: 0.65em auto, 100%;
   cursor: pointer;
   padding-left: 16px;
-  color: #949494;
+  color: var(--grey-02);
 }
 
 .controls__view-container {
