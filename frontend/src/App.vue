@@ -42,7 +42,6 @@
           <button class="view__button" @click="isListView">
             <img src="./assets/list.svg" alt="list view" />
           </button>
-          <span class="vertical-rule">|</span>
           <button class="view__button" @click="isGridView">
             <img src="./assets/grid.svg" alt="grid view" />
           </button>
@@ -253,15 +252,12 @@ export default {
 }
 
 .view__button {
-  border: 0;
+  border: none;
   background-color: #fff;
   cursor: pointer;
-}
 
-.vertical-rule {
-  display: inline-block;
-  height: 100%;
-  background-color: var(--white-01);
-  width: 1px;
+  &:last-child {
+    border-left: 1px solid var(--grey-01);
+  }
 }
 </style>
