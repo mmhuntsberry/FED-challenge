@@ -51,12 +51,13 @@
     </header>
     <div v-if="state.loading">Loading....</div>
     <div v-else-if="state.error">{{ error }}</div>
-    <router-view
-      v-else
-      :pokemons="state.filterPokemons"
-      :viewLayout="viewLayout"
-      :favorites="favorites"
-    />
+    <transition name="fade" mode="out-in" v-else>
+      <router-view
+        :pokemons="state.filterPokemons"
+        :viewLayout="viewLayout"
+        :favorites="favorites"
+      />
+    </transition>
   </div>
 </template>
 
@@ -180,6 +181,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
+}
+
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
 .header {
   position: sticky;
   top: 0;
