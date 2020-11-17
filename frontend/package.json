@@ -23,6 +23,7 @@
     "vuex-composition-helpers": "^1.0.21"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^7.0.1",
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-plugin-e2e-cypress": "^3.9.0",
     "@vue/cli-plugin-eslint": "^3.9.0",
