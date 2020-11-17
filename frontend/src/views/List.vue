@@ -6,6 +6,7 @@
       :pokemon="pokemon"
       :viewLayout="viewLayout"
       :isFavorite="isFavorite"
+      data-testid="list-items"
     />
   </ul>
 </template>
